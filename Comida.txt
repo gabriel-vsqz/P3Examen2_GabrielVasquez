@@ -1,2 +1,5 @@
 1738,Hamburguesa,295
 6210,Pizza,320
+8767,Hot,Dog
+8121,Lasagna,2000
+8429,Algo,200

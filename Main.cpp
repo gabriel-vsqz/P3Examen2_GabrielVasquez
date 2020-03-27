@@ -109,7 +109,6 @@ void verEstado(int posicion) {
         cout << r.getTuplas()[i].toString();
         cout << endl;
     }
-    
 }
 
 void listarRelaciones(bool ask) {
@@ -121,7 +120,7 @@ void listarRelaciones(bool ask) {
         int contador = 1;
         string nombre, encabezados, separador;
         while(archivoRelaciones >> nombre >> separador >> encabezados) {
-            cout << contador << ". " << nombre << endl;//Nombre: " << nombre << "\t" << " Encabezados: " << encabezados << endl;
+            cout << contador << ". " << nombre << endl;
             contador++;
         }
         cout << endl;
@@ -149,7 +148,7 @@ void agregarTupla() {
     
     vector<string> atributos;
     srand(time(NULL));
-    int random = 1000 + rand()%(9999);
+    int random = 1000 + rand()%(9998);
     cout << "\nAgregando tupla a la relación " + r.getNombre() << endl;
     for (int i = 1; i < r.getEncabezados().size(); i++) {
         string att;
@@ -159,7 +158,7 @@ void agregarTupla() {
     }
     Tupla tupla(random, atributos);
     r.setTupla(tupla);
-    
+
     ofstream archivoActual(r.getNombre() + ".txt", ios::app);
     archivoActual << random << ",";
     for (int i = 0; i < atributos.size(); i++) {

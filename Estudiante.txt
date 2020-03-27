@@ -1,2 +1,8 @@
 7819,Gabriel,20
 6507,Mario,18
+8556,Liza,19
+5825,Manuel,21
+10622,Luis,21
+10081,Manuel,21
+8061,Manrique,19
+5474,Alejo,22
