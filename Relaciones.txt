@@ -1,1 +1,2 @@
+Comida - ID,Nombre,Calorías
 Estudiante - ID,Nombre,Edad

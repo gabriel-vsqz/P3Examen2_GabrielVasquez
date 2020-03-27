@@ -43,6 +43,7 @@ void cargarRelaciones() {
                             att += auxiliar[i];
                         }
                     }
+                    attributes.push_back(att);
                     for (int i = 1; i < attributes.size(); i++) {
                         aux_attributes.push_back(attributes[i]);
                     }
@@ -158,13 +159,16 @@ void agregarTupla() {
     }
     Tupla tupla(random, atributos);
     r.setTupla(tupla);
-
+    
     ofstream archivoActual(r.getNombre() + ".txt", ios::app);
     archivoActual << random << ",";
     for (int i = 0; i < atributos.size(); i++) {
-        archivoActual << atributos[i] << ",";
+        if (i == atributos.size() - 1) {
+            archivoActual << atributos[i] + "\n";
+        } else {
+            archivoActual << atributos[i] + ",";
+        }
     }
-    archivoActual << "\n";
 }
 
 int main() {
