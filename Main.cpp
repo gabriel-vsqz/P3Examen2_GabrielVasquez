@@ -118,17 +118,20 @@ void agregarTupla() {
     srand(time(NULL));
     int random = 1000 + rand()%(9999);
     cout << "Agregando tupla a la relación " + r.getNombre() << endl;
-    for (size_t i = 0; i < r.getEncabezados().size(); i++) {
+    for (int i = 1; i < r.getEncabezados().size(); i++) {
         string att;
-        cout << r.getEncabezados[i] << ": ";
+        cout << r.getEncabezados()[i] << ": ";
         cin >> att;
         atributos.push_back(att);
     }
     Tupla tupla(random, atributos);
     r.setTupla(tupla);
 
-    ifstream archivoActual(r.getNombre + ".txt", ios::app);
-    
+    ofstream archivoActual(r.getNombre() + ".txt", ios::app);
+    for (int i = 0; i < atributos.size(); i++) {
+        archivoActual << atributos[i] << " ";
+    }
+    archivoActual << "\n";
 }
 
 int main() {
