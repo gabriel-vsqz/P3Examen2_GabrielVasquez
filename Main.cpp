@@ -28,8 +28,32 @@ void cargarRelaciones() {
             }
             headers.push_back(headerActual);
             Relacion r(nombre, headers);
+
+            ifstream archivoTuplas(nombre + ".txt", ios::in);
+            if (archivoTuplas) {
+                string auxiliar;
+                while (archivoTuplas >> auxiliar) {
+                    vector<string> attributes, aux_attributes;
+                    string att;
+                    for (int i = 0; i < auxiliar.size(); i++) {
+                        if (auxiliar[i] == ',') {
+                            attributes.push_back(att);
+                            att = "";
+                        } else {
+                            att += encabezados[i];
+                        }
+                    }
+                    for (int i = 1; i < attributes.size(); i++) {
+                        aux_attributes.push_back(attributes[i]);
+                    }
+                    
+                    Tupla t(stoi(attributes[0]), aux_attributes);
+                    r.setTupla(t);
+                }
+            }
+
             relaciones.push_back(r);
-        }   
+        }
     }
 }
 
@@ -63,9 +87,6 @@ void crearRelacion() {
     }
 
     ofstream nuevaRelacion(nombre + ".txt", ios::out);
-    /* for (int i = 0; i < encabezados.size(); i++) {
-        nuevaRelacion << encabezados[i] << "\t";
-    } nuevaRelacion << "\n"; */
 }
 
 void verEstado(int posicion) {
@@ -77,6 +98,12 @@ void verEstado(int posicion) {
     for (int i = 0; i < n_headers; i++) {
         cout << r.getEncabezados()[i] << "\t";
     }
+
+    for (int i = 0; i < r.getTuplas().size(); i++) {
+        cout << r.getTuplas()[i].toString();
+        cout << endl;
+    }
+    
 }
 
 void listarRelaciones(bool ask) {
@@ -128,8 +155,9 @@ void agregarTupla() {
     r.setTupla(tupla);
 
     ofstream archivoActual(r.getNombre() + ".txt", ios::app);
+    archivoActual << random << ",";
     for (int i = 0; i < atributos.size(); i++) {
-        archivoActual << atributos[i] << " ";
+        archivoActual << atributos[i] << ",";
     }
     archivoActual << "\n";
 }
