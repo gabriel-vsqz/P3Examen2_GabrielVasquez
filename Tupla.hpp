@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -29,7 +30,7 @@ string Tupla :: toString() {
     attributes += "\t";
     for (size_t i = 0; i < atributos.size(); i++) {
         attributes += atributos[i];
-        attributes += "\t";
+        attributes += "\t\t";
     }
     return attributes;
 }

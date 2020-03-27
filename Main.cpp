@@ -92,11 +92,15 @@ void crearRelacion() {
 void verEstado(int posicion) {
     Relacion r = relaciones[posicion - 1];
     int n_headers = r.getEncabezados().size();
-    ifstream(r.getNombre() + ".txt", ios::in);
     
     cout << "\nEstado de la relación " << r.getNombre() << ":\n\n";
     for (int i = 0; i < n_headers; i++) {
-        cout << r.getEncabezados()[i] << "\t";
+        cout << r.getEncabezados()[i];
+        if (r.getEncabezados()[i] == "ID") {
+            cout << "\t";
+        } else {
+            cout << "\t\t";
+        }
     }
     cout << "\n";
 
@@ -145,7 +149,7 @@ void agregarTupla() {
     vector<string> atributos;
     srand(time(NULL));
     int random = 1000 + rand()%(9999);
-    cout << "Agregando tupla a la relación " + r.getNombre() << endl;
+    cout << "\nAgregando tupla a la relación " + r.getNombre() << endl;
     for (int i = 1; i < r.getEncabezados().size(); i++) {
         string att;
         cout << r.getEncabezados()[i] << ": ";
