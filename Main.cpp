@@ -40,7 +40,7 @@ void cargarRelaciones() {
                             attributes.push_back(att);
                             att = "";
                         } else {
-                            att += encabezados[i];
+                            att += auxiliar[i];
                         }
                     }
                     for (int i = 1; i < attributes.size(); i++) {
@@ -94,10 +94,11 @@ void verEstado(int posicion) {
     int n_headers = r.getEncabezados().size();
     ifstream(r.getNombre() + ".txt", ios::in);
     
-    cout << "Estado de la relación " << r.getNombre() << ":\n";
+    cout << "\nEstado de la relación " << r.getNombre() << ":\n\n";
     for (int i = 0; i < n_headers; i++) {
         cout << r.getEncabezados()[i] << "\t";
     }
+    cout << "\n";
 
     for (int i = 0; i < r.getTuplas().size(); i++) {
         cout << r.getTuplas()[i].toString();
