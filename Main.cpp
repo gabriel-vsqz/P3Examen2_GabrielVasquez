@@ -13,14 +13,12 @@ vector<Relacion> relaciones;
 
 void cargarRelaciones() {
     ifstream archivoRelaciones("Relaciones.txt", ios::in);
-    if(!archivoRelaciones) {
-        cout << "No hay ninguna relación hasta el momento.\n";
-    } else {
+    if(archivoRelaciones) {
         string nombre, encabezados, separador;
         while(archivoRelaciones >> nombre >> separador >> encabezados) {
             vector<string> headers;
             string headerActual;
-            for (int i = 0; i < encabezados.length(); i++) {
+            for (int i = 0; i < encabezados.size(); i++) {
                 if (encabezados[i] == ',') {
                     headers.push_back(headerActual);
                     headerActual = "";
@@ -28,9 +26,10 @@ void cargarRelaciones() {
                     headerActual += encabezados[i];
                 }
             }
+            headers.push_back(headerActual);
             Relacion r(nombre, headers);
             relaciones.push_back(r);
-        }
+        }   
     }
 }
 
@@ -64,16 +63,23 @@ void crearRelacion() {
     }
 
     ofstream nuevaRelacion(nombre + ".txt", ios::out);
-    for (int i = 0; i < encabezados.size(); i++) {
+    /* for (int i = 0; i < encabezados.size(); i++) {
         nuevaRelacion << encabezados[i] << "\t";
-    } nuevaRelacion << "\n";
+    } nuevaRelacion << "\n"; */
 }
 
 void verEstado(int posicion) {
+    Relacion r = relaciones[posicion - 1];
+    int n_headers = r.getEncabezados().size();
+    ifstream(r.getNombre() + ".txt", ios::in);
     
+    cout << "Estado de la relación " << r.getNombre() << ":\n";
+    for (int i = 0; i < n_headers; i++) {
+        cout << r.getEncabezados()[i] << "\t";
+    }
 }
 
-void listarRelaciones() {
+void listarRelaciones(bool ask) {
     ifstream archivoRelaciones("Relaciones.txt", ios::in);
     if(!archivoRelaciones) {
         cout << "No hay ninguna relación hasta el momento.\n";
@@ -87,16 +93,42 @@ void listarRelaciones() {
         }
         cout << endl;
 
-        int posicion_relacion;
-        cout << "¿De qué relación desea ver el estado?: ";
-        cin >> posicion_relacion;
-        while(posicion_relacion < 1 || posicion_relacion > relaciones.size()) {
-            cout << "El número que ingresó no corresponde a las relaciones mostradas en la lista.\n";
-            cout << "Intente de nuevo: ";
+        if (ask) {
+            int posicion_relacion;
+            cout << "¿De qué relación desea ver el estado?: ";
             cin >> posicion_relacion;
+            while(posicion_relacion < 1 || posicion_relacion > relaciones.size()) {
+                cout << "El número que ingresó no corresponde a las relaciones mostradas en la lista.\n";
+                cout << "Intente de nuevo: ";
+                cin >> posicion_relacion;
+            }
+            verEstado(posicion_relacion);
         }
-        verEstado(posicion_relacion);
     }
+}
+
+void agregarTupla() {
+    listarRelaciones(false);
+    int posicion_relacion;
+    cout << "¿En qué relación desea ingresar la tupla?: ";
+    cin >> posicion_relacion;
+    Relacion r = relaciones[posicion_relacion - 1];
+    
+    vector<string> atributos;
+    srand(time(NULL));
+    int random = 1000 + rand()%(9999);
+    cout << "Agregando tupla a la relación " + r.getNombre() << endl;
+    for (size_t i = 0; i < r.getEncabezados().size(); i++) {
+        string att;
+        cout << r.getEncabezados[i] << ": ";
+        cin >> att;
+        atributos.push_back(att);
+    }
+    Tupla tupla(random, atributos);
+    r.setTupla(tupla);
+
+    ifstream archivoActual(r.getNombre + ".txt", ios::app);
+    
 }
 
 int main() {
@@ -114,10 +146,11 @@ int main() {
             } break;
 
             case 2: {
-                listarRelaciones();
+                listarRelaciones(true);
             } break;
 
             case 3: {
+                agregarTupla();
             } break;
 
             case 4: {

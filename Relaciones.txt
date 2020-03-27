@@ -1,3 +1,1 @@
 Estudiante - ID,Nombre,Cuenta,Edad
-Comida - ID,Nombre,Calorías
-Videojuego - ID,Nombre,Género

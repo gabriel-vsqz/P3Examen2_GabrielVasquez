@@ -15,7 +15,9 @@ class Relacion {
         Relacion();
         Relacion(string, vector<string>);
         string getNombre();
+        vector<string> getEncabezados();
         void setTupla(Tupla t);
+        vector<Tupla> getTuplas();
 };
 
 Relacion :: Relacion() {
@@ -30,6 +32,14 @@ string Relacion :: getNombre() {
     return nombre;
 }
 
+vector<string> Relacion :: getEncabezados() {
+    return encabezados;
+}
+
 void Relacion :: setTupla(Tupla nuevo) {
     tuplas.push_back(nuevo);
+}
+
+vector<Tupla> Relacion :: getTuplas() {
+    return tuplas;
 }
