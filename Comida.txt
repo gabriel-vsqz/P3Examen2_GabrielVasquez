@@ -3,3 +3,4 @@
 8767,Hot,Dog
 8121,Lasagna,2000
 8429,Algo,200
+3439,Pastel,5000
